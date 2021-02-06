@@ -3,5 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/gatoazedo/products-api.git",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "dev:server": "nodemon ./src/server.js"
+  }
 }
