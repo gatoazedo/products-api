@@ -1,5 +1,9 @@
 const express = require('express')
 
+const routes = require('./routes') 
+
 const app = express()
 
-app.listen(3333, console.log('Server is running'))
+app.use(routes)
+
+app.listen(3333)
