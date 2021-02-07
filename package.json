@@ -5,7 +5,8 @@
   "repository": "https://github.com/gatoazedo/products-api.git",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
