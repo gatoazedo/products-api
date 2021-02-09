@@ -9,8 +9,6 @@ module.exports = {
 		if(!user) {
 			user = await User.create({username, email})
 
-			console.log(user)
-
 			return res.json(user)
 		}
 	}
