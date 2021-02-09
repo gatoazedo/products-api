@@ -16,9 +16,7 @@ module.exports = {
 
 		const user = await User.findById(user_id)
 
-		if(!user) {
-			return res.status(400).json({error: 'User does not exists'})
-		}
+		if(!user) return res.status(400).json({error: 'User does not exists'})
 
 		const product = await Product.create({
 			user: user_id,
