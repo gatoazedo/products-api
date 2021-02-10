@@ -1,29 +1,31 @@
+const express = require('express')
+
+const authMiddleware = require('../middlewares/auth')
 const Product = require('../models/Product')
-const User = require('../models/User')
 
-module.exports = {
-	async index(req, res) {
-		const {productName} = req.query
+const router = express.Router()
 
-		const products = await Product.find({productName})
+router.use(authMiddleware)
 
-		return res.json(products)
-	},
+router.get('/list', async (req, res) => {
+  const {productName} = req.query
 
-  async store(req, res) {
-		const {productName, description} = req.body
-		const {user_id} = req.headers
+  const products = await Product.find({productName})
+  
+  if(products == '')
+    return res.status(404).send({error: 'Product not found'})
 
-		const user = await User.findById(user_id)
+  return res.send({products})
+})
 
-		if(!user) return res.status(400).json({error: 'User does not exists'})
+router.post('/create', async (req, res) => {
+  try{
+    const product = await Product.create(req.body)
 
-		const product = await Product.create({
-			user: user_id,
-			productName,
-			description
-		})
+    return res.send({product, user: req.userId})
+  } catch(err) {
+    return res.status(400).send({error: 'Creation failed'})
+  }
+})
 
-		return res.json(product)
-	}
-}
+module.exports = app => app.use('/products', router)

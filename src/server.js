@@ -1,8 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-//const routes = require('./routes')
-
 const app = express()
 
 app.use(express.json())
@@ -13,9 +11,7 @@ mongoose.connect(
 )
 
 require('./controllers/AuthController')(app)
+require('./controllers/ProductController')(app)
 require('./controllers/ProjectController')(app)
-
-
-//app.use(routes)
 
 app.listen(3333)
