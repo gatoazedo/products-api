@@ -1,8 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-const routes = require('./routes')
-
 const app = express()
 
 app.use(express.json())
@@ -12,6 +10,7 @@ mongoose.connect(
 	{useNewUrlParser: true, useUnifiedTopology: true}
 )
 
-app.use(routes)
+require('./controllers/AuthController')(app)
+require('./controllers/ProductController')(app)
 
 app.listen(3333)
