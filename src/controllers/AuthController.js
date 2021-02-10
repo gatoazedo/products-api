@@ -47,9 +47,6 @@ router.post('/authenticate', async (req, res) => {
 
   user.password = undefined
 
-  //JWT configuration.
-  const token = 
-
   res.send({
     user,
     token: generateToken({id: user.id})
