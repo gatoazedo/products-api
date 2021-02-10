@@ -12,6 +12,5 @@ mongoose.connect(
 
 require('./controllers/AuthController')(app)
 require('./controllers/ProductController')(app)
-require('./controllers/ProjectController')(app)
 
 app.listen(3333)
