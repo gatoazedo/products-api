@@ -22,7 +22,7 @@ router.post('/create', async (req, res) => {
   try{
     const product = await Product.create(req.body)
 
-    return res.send({product, user: req.userId})
+    return res.send({product})
   } catch(err) {
     return res.status(400).send({error: 'Creation failed'})
   }
