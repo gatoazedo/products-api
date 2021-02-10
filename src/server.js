@@ -13,6 +13,8 @@ mongoose.connect(
 )
 
 require('./controllers/AuthController')(app)
+require('./controllers/ProjectController')(app)
+
 
 //app.use(routes)
 
