@@ -5,9 +5,12 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  productDescription: {
     type: String,
     required: true
+  },
+  productPrice: {
+    type: Number
   },
   createdAt: {
     type: Date,
