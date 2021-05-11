@@ -28,4 +28,33 @@ router.post('/create', async (req, res) => {
   }
 })
 
+router.put('/update', async (req, res) => {
+  try{
+    const {productName, productDescription, productPrice, discount} = req.body
+    const {_id} = req.query
+
+    const product = await Product.findById({_id})
+
+    if(!product) 
+      return res.status(404).send({error: 'Product does not exists'})
+
+    if(discount === true) {
+      let newValue = productPrice * 0.85
+      
+      console.log(newValue)
+
+      const productUpdated = await Product.updateOne({productName, productDescription, productPrice: newValue})
+
+      return res.json({productUpdated})
+    }
+
+    const productUpdated = await Product.updateOne({productName, productDescription, productPrice})
+
+    return res.json({productUpdated})
+
+  } catch(err) {
+    return res.status(400).send({error: 'Update failed'})
+  }
+})
+
 module.exports = app => app.use('/products', router)
