@@ -1,7 +1,11 @@
 const express = require('express')
+const multer = require('multer')
 
 const authMiddleware = require('../middlewares/auth')
+const multerConfig = require('../config/multer')
+
 const Product = require('../models/Product')
+const User = require('../models/User')
 
 const router = express.Router()
 
@@ -18,10 +22,25 @@ router.get('/list', async (req, res) => {
   return res.send({products})
 })
 
-router.post('/create', async (req, res) => {
+router.post('/store', multer(multerConfig).single('file'), async (req, res) => {
   try{
-    const product = await Product.create(req.body)
+    const {file} = req.file
+    const {productName, productDescription, productPrice} = req.body
+    const {user_id} = req.headers
 
+    const user = await User.findById(user_id)
+
+    if(!user)
+      return res.status(401).send({error: 'User does not exists'})
+    
+    const product = await Product.create({
+      user: user_id,
+      image: file,
+      productName,
+      productDescription,
+      productPrice
+    })
+    
     return res.send({product})
   } catch(err) {
     return res.status(400).send({error: 'Creation failed'})

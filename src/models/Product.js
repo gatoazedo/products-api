@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const ProductSchema = new mongoose.Schema({
+  image: String,
   productName: {
     type: String,
     required: true,
@@ -11,6 +12,10 @@ const ProductSchema = new mongoose.Schema({
   },
   productPrice: {
     type: Number
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   createdAt: {
     type: Date,
