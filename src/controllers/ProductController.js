@@ -30,15 +30,13 @@ router.post('/create', async (req, res) => {
 
 router.put('/update', async (req, res) => {
   try{
-    const {productName, productDescription, productPrice, discount} = req.body
+    const {discount, productPrice, ...productInfo} = req.body
     const {_id} = req.query
 
     if(discount === true) {
       let newValue = productPrice * 0.75
       
-      console.log(newValue)
-
-      const product = await Product.findByIdAndUpdate(_id, {productName, productDescription, productPrice: newValue})
+      const product = await Product.findByIdAndUpdate(_id, {productInfo, productPrice: newValue})
 
       if(!product)
         return res.status(404).send({error: 'Product does not exists'})
@@ -46,7 +44,7 @@ router.put('/update', async (req, res) => {
       return res.json({product})
     }
 
-    const product = await Product.findByIdAndUpdate(_id, {productName, productDescription, productPrice})
+    const product = await Product.findByIdAndUpdate(_id, {productInfo, productPrice})
 
     return res.json({product})
 
