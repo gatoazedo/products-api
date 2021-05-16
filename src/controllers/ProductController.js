@@ -62,12 +62,20 @@ router.put('/update', async (req, res) => {
       
       console.log(newValue)
 
-      const productUpdated = await Product.updateOne({productName, productDescription, productPrice: newValue})
+      const productUpdated = await Product.updateOne({
+        productName, 
+        productDescription, 
+        productPrice: newValue
+      })
 
       return res.json({productUpdated})
     }
 
-    const productUpdated = await Product.updateOne({productName, productDescription, productPrice})
+    const productUpdated = await Product.updateOne({
+      productName, 
+      productDescription, 
+      productPrice
+    })
 
     return res.json({productUpdated})
 
